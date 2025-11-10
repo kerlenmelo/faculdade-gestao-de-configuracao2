@@ -1,10 +1,9 @@
-// src/routes/gastosRoutes.js
 const express = require('express');
 const router = express.Router();
-const gastosController = require('../controllers/gastosController');
+const { getGastos, postGasto, deleteGasto } = require('../controllers/gastosController');
 
-router.get('/', gastosController.getGastos);
-
-router.post('/', gastosController.addGastos)
+router.get('/', getGastos);
+router.post('/', postGasto);
+router.delete('/:id', deleteGasto);
 
 module.exports = router;
