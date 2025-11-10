@@ -22,6 +22,12 @@ describe('API de Gastos', () => {
     expect(res.body).toHaveProperty('id');
     expect(res.body.titulo).toBe("Mercado");
   });
+  
+  test('Deve retornar 400 se POST /api/gastos for enviado sem título ou categoria', async () => {
+    const res = await request(app).post('/api/gastos').send({ categoria: "Casa" }); // sem título
+    expect(res.statusCode).toBe(400);
+    expect(res.body).toHaveProperty('message');
+  });
 
   test('Deve retornar 404 ao remover gasto inexistente (DELETE /api/gastos/:id)', async () => {
     const res = await request(app).delete('/api/gastos/999');
@@ -34,4 +40,9 @@ describe('API de Gastos', () => {
     expect(res.statusCode).toBe(204);
   });
 
+  test('Deve retornar 400 se ID do DELETE não for numérico', async () => {
+    const res = await request(app).delete('/api/gastos/abc');
+    expect(res.statusCode).toBe(400);
+    expect(res.body).toHaveProperty('message');
+  });
 });
