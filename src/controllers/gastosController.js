@@ -1,20 +1,37 @@
-// src/controllers/gastosController.js
-const gastos = require('../models/gastosModel');
+const { listarGastos, adicionarGasto, removerGasto } = require('../models/gastosModel');
 
-const getGastos = (req, res) => {
-  res.json(gastos); // Retorna todos os gastos
-};
+// GET
+function getGastos(req, res) {
+  res.json(listarGastos());
+}
 
-const addGastos = (req, res) => {
+// POST
+function postGasto(req, res) {
   const { titulo, categoria } = req.body;
   if (!titulo || !categoria) {
-    return res.status(400).json({ message: 'Título e Categoria são obrigatórios.' });
+    return res.status(400).json({ message: 'Campos obrigatórios: titulo, categoria' });
   }
 
-  const newGasto = { id: gastos.length + 1, titulo, categoria };
-  gastos.push(newGasto);
-  res.status(201).json(newGasto);
-};
+  const gastos = listarGastos();
+  const novoGasto = { id: gastos.length + 1, titulo, categoria };
+  adicionarGasto(novoGasto);
+  res.status(201).json(novoGasto);
+}
 
+// DELETE
+function deleteGasto(req, res) {
+  const id = parseInt(req.params.id);
 
-module.exports = { getGastos, addGastos };
+  if (isNaN(id)) {
+    return res.status(400).json({ message: 'ID inválido' });
+  }
+
+  const sucesso = removerGasto(id);
+  if (!sucesso) {
+    return res.status(404).json({ message: 'Gasto não encontrado' });
+  }
+
+  res.status(204).send();
+}
+
+module.exports = { getGastos, postGasto, deleteGasto };
