@@ -1,2 +1,8 @@
 # Dependências do Node.js
 /node_modules/
+
+# Logs e cache
+coverage/
+
+# Configurações locais
+.vscode/

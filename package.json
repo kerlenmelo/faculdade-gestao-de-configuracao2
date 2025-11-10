@@ -4,7 +4,11 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-  "start": "node server.js"
+    "start": "node server.js",
+    "test": "jest --coverage"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "keywords": [],
   "author": "",
@@ -12,5 +16,10 @@
   "dependencies": {
     "body-parser": "^2.2.0",
     "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.39.1",
+    "jest": "^30.2.0",
+    "supertest": "^7.1.4"
   }
 }
