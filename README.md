@@ -71,8 +71,9 @@ Envie no corpo da requisição um JSON com os campos `titulo` e `categoria`.
 Remove um gasto existente.
 
 #### Regras:
-- Retorna **204** se o gasto for removido com sucesso.  
-- Retorna **404** se o gasto não existir.  
+
+- Retorna **204** se o gasto for removido com sucesso.
+- Retorna **404** se o gasto não existir.
 - Retorna **400** se o ID informado for inválido.
 
 #### Exemplo de resposta (404 - Not Found):
@@ -103,12 +104,13 @@ A cobertura atual é **100%**, atendendo ao requisito mínimo de **90%**.
 ## ⚙️ Integração Contínua (CI)
 
 O projeto utiliza **GitHub Actions** para integração contínua.  
-Dois jobs são executados a cada *push* ou *pull request*:
+Dois jobs são executados a cada _push_ ou _pull request_:
 
-1. **Verificação de Estilo (ESLint)**  
+1. **Verificação de Estilo (ESLint)**
+
    - Garante a padronização e a qualidade do código.
 
-2. **Testes Automatizados com Cobertura (Jest)**  
+2. **Testes Automatizados com Cobertura (Jest)**
    - Executa todos os testes e verifica se a cobertura mínima global (90%) é atendida.
 
 Esses jobs estão definidos no arquivo:  
@@ -116,13 +118,68 @@ Esses jobs estão definidos no arquivo:
 
 ---
 
+## 🐳 Imagem Docker
+
+A imagem Docker desta API é construída e publicada automaticamente via GitHub Actions e está disponível no Docker Hub:
+
+👉 **https://hub.docker.com/r/kerlenmelo/faculdade_gc2**
+
+### 📦 Badges
+
+[![Docker Pulls](https://badgen.net/docker/pulls/kerlenmelo/faculdade_gc2)](https://hub.docker.com/r/kerlenmelo/faculdade_gc2)  
+[![Docker Image Size](https://badgen.net/docker/size/kerlenmelo/faculdade_gc2)](https://hub.docker.com/r/kerlenmelo/faculdade_gc2)
+
+---
+
+### ▶️ Como executar a API via Docker
+
+Baixe a imagem:
+
+```bash
+docker pull kerlenmelo/faculdade_gc2:latest
+```
+
+Execute o container:
+
+```bash
+docker run -p 8080:8080 kerlenmelo/faculdade_gc2:latest
+```
+
+A API ficará disponível em:
+
+```
+http://localhost:8080
+```
+
+---
+
+### 🔄 Automação de Build e Deploy da Imagem
+
+A imagem é construída e enviada para o Docker Hub automaticamente sempre que a branch `main` é atualizada.  
+Esse processo é feito pelo workflow:
+
+📄 `.github/workflows/docker-publish.yml`
+
+Esse workflow contém dois jobs principais:
+
+1. **Construção da Imagem Docker**
+
+   - Usa o `Dockerfile` na raiz do projeto
+   - Gera uma imagem leve baseada em `node:20-alpine`
+
+2. **Publicação no Docker Hub**
+   - Realiza login via GitHub Secrets
+   - Envia a imagem para `kerlenmelo/faculdade_gc2:latest`
+
+---
+
 ## 🔐 Proteção da Branch Principal
 
 A branch **main** foi configurada com as seguintes proteções:
 
-- Requer **Pull Request** antes do merge;  
-- Exige que todos os **commits sejam assinados (GPG)**;  
-- Bloqueia **force pushes**;  
+- Requer **Pull Request** antes do merge;
+- Exige que todos os **commits sejam assinados (GPG)**;
+- Bloqueia **force pushes**;
 - Exige que os **workflows (`lint` e `test`)** passem com sucesso antes do merge.
 
 Essas regras garantem controle de versão, integridade e qualidade contínua do código.
@@ -140,26 +197,28 @@ Cada nova funcionalidade é desenvolvida em uma **branch específica** (por exem
 
 Todos os commits seguem o padrão **semântico** e são **assinados digitalmente**:
 
-- `feat:` – novas funcionalidades  
-- `fix:` – correções de bugs  
-- `test:` – criação ou atualização de testes  
-- `ci:` – alterações em pipelines e workflows  
-- `docs:` – atualizações na documentação  
+- `feat:` – novas funcionalidades
+- `fix:` – correções de bugs
+- `test:` – criação ou atualização de testes
+- `ci:` – alterações em pipelines e workflows
+- `docs:` – atualizações na documentação
 - `chore:` – mudanças de configuração ou manutenção
 
 ---
 
 ## ✅ Conclusão
 
-O projeto **atende integralmente aos requisitos da atividade**, incluindo: 
-- Testes automatizados com cobertura mínima de 90%  
-- Workflows de CI com lint e cobertura  
-- Commits assinados e semânticos  
-- Branch principal protegida  
+O projeto **atende integralmente aos requisitos da atividade**, incluindo:
+
+- Testes automatizados com cobertura mínima de 90%
+- Workflows de CI com lint e cobertura
+- Commits assinados e semânticos
+- Branch principal protegida
 
 ---
 
 ### ✍️ Autor
+
 **Kerlen Melo**  
-Disciplina: *Gestão de Configuração 2*  
-Instituição: *IFPE – Instituto Federal de Pernambuco*
+Disciplina: _Gestão de Configuração 2_  
+Instituição: _IFPE – Instituto Federal de Pernambuco_
