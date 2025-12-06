@@ -173,6 +173,36 @@ Esse workflow contém dois jobs principais:
 
 ---
 
+## 🛠 Configuração com Ansible
+
+O projeto inclui um playbook Ansible para instalação automática da aplicação.
+
+### 📁 Arquivos
+
+```
+ansible/
+ ├── inventory
+ └── configura-node.yaml
+```
+
+### ▶️ Como executar o playbook
+
+Execute:
+
+```bash
+ansible-playbook -i ansible/inventory ansible/configura-node.yaml
+```
+
+### 🔍 Testar a aplicação
+
+Após o playbook instalar a aplicação:
+
+```bash
+curl http://localhost:8080/api/gastos
+```
+
+---
+
 ## 🔐 Proteção da Branch Principal
 
 A branch **main** foi configurada com as seguintes proteções:

@@ -1,0 +1,39 @@
+---
+- name: Configurar aplicação Node.js da disciplina
+  hosts: servidores
+  become: yes
+
+  tasks:
+    - name: Atualizar lista de pacotes (caso a máquina suporte apt)
+      apt:
+        update_cache: yes
+      ignore_errors: yes
+
+    - name: Instalar Node.js e npm (caso necessário)
+      apt:
+        name: ["nodejs", "npm"]
+        state: present
+      ignore_errors: yes
+
+    - name: Criar diretório da aplicação
+      file:
+        path: /opt/api-gastos
+        state: directory
+
+    - name: Clonar o repositório da aplicação
+      git:
+        repo: "https://github.com/kerlenmelo/faculdade-gestao-de-configuracao2.git"
+        dest: /opt/api-gastos
+        version: main
+
+    - name: Instalar dependências da aplicação
+      command: npm install
+      args:
+        chdir: /opt/api-gastos
+      ignore_errors: yes
+
+    - name: Iniciar aplicação
+      command: npm start
+      args:
+        chdir: /opt/api-gastos
+      ignore_errors: yes
